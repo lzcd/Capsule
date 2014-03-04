@@ -26,6 +26,8 @@ namespace Capsule
             {
                 case "+":
                     return new Add();
+                case "*":
+                    return new Multiply();
                 case "lambda":
                     return new Lambda();
                 case "define":

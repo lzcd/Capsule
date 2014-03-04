@@ -32,11 +32,19 @@ namespace UnitTests
         }
 
         [TestMethod]
-        public void CanDefine()
+        public void CanDefineSimple()
         {
             var host = new Host();
             var result = host.Evaluate(@"(define age 35) age");
             Assert.AreEqual("35", result);
+        }
+
+        [TestMethod]
+        public void CanDefineComplex()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(define (square x) (* x x)) (square 21)");
+            Assert.AreEqual("44", result);
         }
     }
 }

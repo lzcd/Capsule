@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Add.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Multiply.cs" />
     <Compile Include="Define.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Host.cs" />
