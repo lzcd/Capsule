@@ -8,16 +8,40 @@ namespace Capsule
 {
     class Nodes : INode
     {
-        private INode[] nodes;
+        private INode first;
+        private INode[] rest;
 
         public Nodes(params INode[] nodes)
         {
-            this.nodes = nodes;
+            first = nodes.FirstOrDefault();
+            if (nodes.Length > 1)
+            {
+                rest = nodes.Skip(1).ToArray();
+            }
+            else
+            {
+                rest = new INode[] { };
+            }
         }
 
         public INode Evaluate()
         {
-            return null;    
+            if (first == null)
+            {
+                return this;
+            }
+
+            var evaluatedFirst = first.Evaluate();
+
+            var applicable = evaluatedFirst as IApplicable;
+            if (applicable == null)
+            {
+                return this;
+            }
+
+            var result = applicable.Apply(rest);
+
+            return result;
         }
     }
 }
