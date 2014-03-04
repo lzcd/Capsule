@@ -1,0 +1,7 @@
+obj
+bin
+*.suo
+TestResults/
+*.zip
+ExternalDependencies
+thumbs.db
