@@ -6,7 +6,18 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    class Nodes : List<INode>, INode
+    class Nodes : INode
     {
+        private INode[] nodes;
+
+        public Nodes(params INode[] nodes)
+        {
+            this.nodes = nodes;
+        }
+
+        public INode Evaluate()
+        {
+            return null;    
+        }
     }
 }

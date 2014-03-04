@@ -14,6 +14,7 @@ namespace Capsule
             var words = parser.ToWords(source);
             var root = parser.ToNodes(words);
 
+            root.Evaluate();
         }
 
        

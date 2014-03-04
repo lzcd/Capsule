@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    interface INode: IEvaluatable
+    interface IEvaluatable
     {
+        INode Evaluate();
     }
 }

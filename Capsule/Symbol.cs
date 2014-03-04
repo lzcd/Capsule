@@ -14,5 +14,10 @@ namespace Capsule
         {
             Name = name;
         }
+
+        public INode Evaluate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
