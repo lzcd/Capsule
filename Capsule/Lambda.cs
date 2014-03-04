@@ -26,7 +26,11 @@ namespace Capsule
                     return new Error();
                 }
 
-                Record(parameters);
+                Error error;
+                if (!TryRecord(parameters, out error))
+                {
+                    return error;
+                }
 
                 isRecording = false;
                 return this;
@@ -38,13 +42,35 @@ namespace Capsule
 
         private INode Playback(INode[] parameters)
         {
-            throw new NotImplementedException();
+            if (parameters.Length != parameterNames.Count)
+            {
+                return new Error();
+            }
+
+            for (var parameterIndex = 0; parameterIndex < parameters.Length; parameterIndex++)
+            {
+                var parameterName = parameterNames[parameterIndex];
+                var parameterValue = parameters[parameterIndex];
+            }
+
+            var evaluatedBehaviour = behaviour.Evaluate();
+
+            return evaluatedBehaviour;
         }
 
-        private void Record(INode[] parameters)
+        private bool TryRecord(INode[] parameters, out Error error)
         {
+            error = null;
+          
             parameterNames = parameters.First() as Nodes;
+            if (parameterNames == null)
+            {
+                error = new Error();
+                return false;
+            }
+
             behaviour = parameters.Skip(1).First();
+            return true;
         }
     }
 }

@@ -9,31 +9,31 @@ namespace Capsule
     class Nodes : INode
     {
         private INode[] nodes;
-        private INode first;
-        private INode[] rest;
+        public INode First { get; private set; }
+        public INode[] Rest { get; private set; }
 
         public Nodes(params INode[] nodes)
         {
             this.nodes = nodes;
-            first = nodes.FirstOrDefault();
+            First = nodes.FirstOrDefault();
             if (nodes.Length > 1)
             {
-                rest = nodes.Skip(1).ToArray();
+                Rest = nodes.Skip(1).ToArray();
             }
             else
             {
-                rest = new INode[] { };
+                Rest = new INode[] { };
             }
         }
 
         public INode Evaluate()
         {
-            if (first == null)
+            if (First == null)
             {
                 return this;
             }
 
-            var evaluatedFirst = first.Evaluate();
+            var evaluatedFirst = First.Evaluate();
 
             var applicable = evaluatedFirst as IApplyable;
             if (applicable == null)
@@ -41,9 +41,17 @@ namespace Capsule
                 return this;
             }
 
-            var result = applicable.Apply(rest);
+            var result = applicable.Apply(Rest);
 
             return result;
+        }
+
+        public INode this[int index]
+        {
+            get
+            {
+                return nodes[index];
+            }
         }
 
         public System.Collections.Generic.IEnumerator<INode> GetEnumerator()
@@ -51,6 +59,14 @@ namespace Capsule
             foreach (var node in nodes)
             {
                 yield return node;
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                return nodes.Length;
             }
         }
 
