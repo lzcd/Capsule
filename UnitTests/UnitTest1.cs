@@ -46,5 +46,19 @@ namespace UnitTests
             var result = host.Evaluate(@"(define (square x) (* x x)) (square 21)");
             Assert.AreEqual("441", result);
         }
+
+        [TestMethod]
+        public void CanDefineComposedComplex()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"
+(define (square x) (* x x)) 
+
+(define (sum-of-squares x y)
+  (+ (square x) (square y)))
+
+(sum-of-squares 3 4)");
+            Assert.AreEqual("25", result);
+        }
     }
 }
