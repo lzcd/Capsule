@@ -17,7 +17,12 @@ namespace Capsule
 
         public INode Evaluate()
         {
-            throw new NotImplementedException();
+            if (Name == "+")
+            {
+                return new Add();
+            }
+
+            return new Number(decimal.Parse(Name));
         }
     }
 }

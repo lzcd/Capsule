@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    interface IApplicable
+    interface IAppyable
     {
-        INode Apply(params INode[] paramaters);
+        INode Apply(params INode[] parameters);
     }
 }
