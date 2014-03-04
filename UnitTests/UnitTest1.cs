@@ -8,10 +8,11 @@ namespace UnitTests
     public class UnitTest1
     {
         [TestMethod]
-        public void TestMethod1()
+        public void CanAdd()
         {
             var host = new Host();
-            host.Evaluate(@"(+ 1 (+ 2 3) 4)");
+            var result = host.Evaluate(@"+ 1 (+ 2 3) 4");
+            Assert.AreEqual("10", result);
         }
     }
 }

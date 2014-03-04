@@ -33,7 +33,7 @@ namespace Capsule
 
             var evaluatedFirst = first.Evaluate();
 
-            var applicable = evaluatedFirst as IAppyable;
+            var applicable = evaluatedFirst as IApplyable;
             if (applicable == null)
             {
                 return this;

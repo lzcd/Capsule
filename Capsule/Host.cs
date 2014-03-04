@@ -8,16 +8,15 @@ namespace Capsule
 {
     public class Host
     {
-        public void Evaluate(string source)
+        public string Evaluate(string source)
         {
             var parser = new Parser();
             var words = parser.ToWords(source);
             var root = parser.ToNodes(words);
 
             var result = root.Evaluate();
+
+            return result.ToString();
         }
-
-       
-
     }
 }

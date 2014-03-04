@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    class Add : INode, IAppyable
+    class Add : INode, IApplyable
     {
         public INode Evaluate()
         {
@@ -15,7 +15,18 @@ namespace Capsule
 
         public INode Apply(params INode[] parameters)
         {
-            return new Number(42);
+            var tally = 0M;
+            foreach (var parameter in parameters)
+            {
+                var evaluatedParameter = parameter.Evaluate();
+                var number = evaluatedParameter as Number;
+                if (number == null)
+                {
+                    return new Error();
+                }
+                tally += number.Value;
+            }
+            return new Number(tally);
         }
     }
 }

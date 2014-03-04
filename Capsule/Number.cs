@@ -14,9 +14,15 @@ namespace Capsule
         {
             Value = value;
         }
+
         public INode Evaluate()
         {
             return this;
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
     }
 }
