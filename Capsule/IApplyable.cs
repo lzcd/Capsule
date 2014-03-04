@@ -8,6 +8,6 @@ namespace Capsule
 {
     interface IApplyable
     {
-        INode Apply(params INode[] parameters);
+        INode Apply(Context context, params INode[] parameters);
     }
 }

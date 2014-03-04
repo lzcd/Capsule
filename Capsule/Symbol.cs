@@ -15,8 +15,13 @@ namespace Capsule
             Name = name;
         }
 
-        public INode Evaluate()
+        public INode Evaluate(Context context)
         {
+            INode value;
+            if (context.TryGetValue(Name, out value))
+            {
+                return value;
+            }
             switch (Name)
             {
                 case "+":

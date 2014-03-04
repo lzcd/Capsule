@@ -8,6 +8,13 @@ namespace Capsule
 {
     public class Host
     {
+        private Context context;
+
+        public Host()
+        {
+            context = new Context(null);
+        }
+
         public string Evaluate(string source)
         {
             var parser = new Parser();
@@ -26,7 +33,7 @@ namespace Capsule
                 {
                     addSpacing = true;
                 }
-                result.Append(node.Evaluate());
+                result.Append(node.Evaluate(context));
             }
 
             return result.ToString();

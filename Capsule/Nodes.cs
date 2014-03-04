@@ -26,14 +26,15 @@ namespace Capsule
             }
         }
 
-        public INode Evaluate()
+        public INode Evaluate(Context context)
         {
             if (First == null)
             {
                 return this;
             }
 
-            var evaluatedFirst = First.Evaluate();
+            var childContext = new Context(context);
+            var evaluatedFirst = First.Evaluate(childContext);
 
             var applicable = evaluatedFirst as IApplyable;
             if (applicable == null)
@@ -41,7 +42,7 @@ namespace Capsule
                 return this;
             }
 
-            var result = applicable.Apply(Rest);
+            var result = applicable.Apply(childContext, Rest);
 
             return result;
         }

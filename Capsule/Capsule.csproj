@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Add.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="IApplyable.cs" />

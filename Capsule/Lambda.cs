@@ -8,7 +8,7 @@ namespace Capsule
 {
     class Lambda : INode, IApplyable
     {
-        public INode Evaluate()
+        public INode Evaluate(Context context)
         {
             return this;
         }
@@ -17,7 +17,7 @@ namespace Capsule
         private Nodes parameterNames;
         private INode behaviour;
 
-        public INode Apply(params INode[] parameters)
+        public INode Apply(Context context, params INode[] parameters)
         {
             if (isRecording)
             {
@@ -36,24 +36,31 @@ namespace Capsule
                 return this;
             }
 
-            var result = Playback(parameters);
+            var result = Playback(context, parameters);
             return result;
         }
 
-        private INode Playback(INode[] parameters)
+        private INode Playback(Context context, INode[] parameters)
         {
             if (parameters.Length != parameterNames.Count)
             {
                 return new Error();
             }
 
+            var childContext = new Context(context);
             for (var parameterIndex = 0; parameterIndex < parameters.Length; parameterIndex++)
             {
-                var parameterName = parameterNames[parameterIndex];
+                var parameterName = parameterNames[parameterIndex] as Symbol;
+                if (parameterName == null)
+                {
+                    return new Error();
+                }
                 var parameterValue = parameters[parameterIndex];
+                var evaluatedParameterValue = parameterValue.Evaluate(context);
+                childContext[parameterName.Name] = evaluatedParameterValue;
             }
 
-            var evaluatedBehaviour = behaviour.Evaluate();
+            var evaluatedBehaviour = behaviour.Evaluate(childContext);
 
             return evaluatedBehaviour;
         }
@@ -61,7 +68,7 @@ namespace Capsule
         private bool TryRecord(INode[] parameters, out Error error)
         {
             error = null;
-          
+
             parameterNames = parameters.First() as Nodes;
             if (parameterNames == null)
             {

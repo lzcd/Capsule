@@ -8,7 +8,7 @@ namespace Capsule
 {
     class Error : INode
     {
-        public INode Evaluate()
+        public INode Evaluate(Context context)
         {
             return this;
         }

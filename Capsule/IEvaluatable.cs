@@ -8,6 +8,6 @@ namespace Capsule
 {
     interface IEvaluatable
     {
-        INode Evaluate();
+        INode Evaluate(Context context);
     }
 }

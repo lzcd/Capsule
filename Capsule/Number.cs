@@ -15,7 +15,7 @@ namespace Capsule
             Value = value;
         }
 
-        public INode Evaluate()
+        public INode Evaluate(Context context)
         {
             return this;
         }

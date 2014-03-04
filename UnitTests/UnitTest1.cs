@@ -27,8 +27,8 @@ namespace UnitTests
         public void CanLambda()
         {
             var host = new Host();
-            var result = host.Evaluate(@"((lambda (x) (+ x 5)) 7)");
-            Assert.AreEqual("12", result);
+            var result = host.Evaluate(@"((lambda (x y) (+ x y 5)) 7 9)");
+            Assert.AreEqual("21", result);
         }
     }
 }
