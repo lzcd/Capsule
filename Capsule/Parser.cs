@@ -8,6 +8,35 @@ namespace Capsule
 {
     class Parser
     {
+        public Nodes ToNodes(List<string> words)
+        {
+            var stack = new Stack<Nodes>();
+            var root = new Nodes();
+            stack.Push(root);
+
+            foreach (var word in words)
+            {
+                var parent = stack.Peek();
+
+                switch (word)
+                {
+                    case "(":
+                        var listNode = new Nodes();
+                        parent.Add(listNode);
+                        stack.Push(listNode);
+                        break;
+                    case ")":
+                        stack.Pop();
+                        break;
+                    default:
+                        var symbol = new Symbol(word);
+                        parent.Add(symbol);
+                        break;
+                }
+            }
+            return root;
+        }
+
         public List<string> ToWords(string text)
         {
             var words = new List<string>();

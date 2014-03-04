@@ -12,7 +12,11 @@ namespace Capsule
         {
             var parser = new Parser();
             var words = parser.ToWords(source);
+            var root = parser.ToNodes(words);
+
         }
+
+       
 
     }
 }

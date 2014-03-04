@@ -11,7 +11,7 @@ namespace UnitTests
         public void TestMethod1()
         {
             var host = new Host();
-            host.Evaluate(@"(+ 1 2)");
+            host.Evaluate(@"(+ 1 (+ 2 3) 4)");
         }
     }
 }
