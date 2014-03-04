@@ -11,7 +11,7 @@ namespace UnitTests
         public void CanList()
         {
             var host = new Host();
-            var result = host.Evaluate(@"1 2 3 4");
+            var result = host.Evaluate(@"(1 2 3 4)");
             Assert.AreEqual("(1 2 3 4)", result);
         }
 
@@ -19,7 +19,7 @@ namespace UnitTests
         public void CanAdd()
         {
             var host = new Host();
-            var result = host.Evaluate(@"+ 1 (+ 2 3) 4");
+            var result = host.Evaluate(@"(+ 1 (+ 2 3) 4)");
             Assert.AreEqual("10", result);
         }
     }

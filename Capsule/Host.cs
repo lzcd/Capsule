@@ -14,7 +14,20 @@ namespace Capsule
             var words = parser.ToWords(source);
             var root = parser.ToNodes(words);
 
-            var result = root.Evaluate();
+            var result = new StringBuilder();
+            var addSpacing = false;
+            foreach (var node in root)
+            {
+                if (addSpacing)
+                {
+                    result.Append(" ");
+                }
+                else
+                {
+                    addSpacing = true;
+                }
+                result.Append(node.Evaluate());
+            }
 
             return result.ToString();
         }

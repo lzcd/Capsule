@@ -46,6 +46,14 @@ namespace Capsule
             return result;
         }
 
+        public System.Collections.Generic.IEnumerator<INode> GetEnumerator()
+        {
+            foreach (var node in nodes)
+            {
+                yield return node;
+            }
+        }
+
         public override string ToString()
         {
             var description = new StringBuilder();
