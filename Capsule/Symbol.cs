@@ -24,5 +24,10 @@ namespace Capsule
 
             return new Number(decimal.Parse(Name));
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

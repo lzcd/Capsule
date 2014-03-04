@@ -8,11 +8,13 @@ namespace Capsule
 {
     class Nodes : INode
     {
+        private INode[] nodes;
         private INode first;
         private INode[] rest;
 
         public Nodes(params INode[] nodes)
         {
+            this.nodes = nodes;
             first = nodes.FirstOrDefault();
             if (nodes.Length > 1)
             {
@@ -42,6 +44,27 @@ namespace Capsule
             var result = applicable.Apply(rest);
 
             return result;
+        }
+
+        public override string ToString()
+        {
+            var description = new StringBuilder();
+            description.Append("(");
+            var addSpacing = false;
+            foreach (var node in nodes)
+            {
+                if (addSpacing)
+                {
+                    description.Append(" ");
+                }
+                else
+                {
+                    addSpacing = true;
+                }
+                description.Append(node.ToString());
+            }
+            description.Append(")");
+            return description.ToString();
         }
     }
 }
