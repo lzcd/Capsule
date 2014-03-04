@@ -14,14 +14,28 @@ namespace Capsule
             {
                 return new Error();
             }
-            var parameterName = parameters.First() as Symbol;
-            if (parameterName == null)
+            var parameterValue = parameters.Skip(1).First();
+
+            var simpleName = parameters.First() as Symbol;
+            if (simpleName != null)
+            {
+                context.Parent[simpleName.Name] = parameterValue;
+                return null;
+            }
+
+            var complexNameContainer = parameters.First() as Nodes;
+            if (complexNameContainer == null)
             {
                 return new Error();
             }
-            var parameterValue = parameters.Skip(1).First();
-            context.Parent[parameterName.Name] = parameterValue;
+            var complexName = complexNameContainer.First as Symbol;
+            if (complexName == null)
+            {
+                return new Error();
+            }
 
+            var lambda = new Lambda(new Nodes(complexNameContainer.Rest), parameterValue);
+            context.Parent[complexName.Name] = lambda;
             return null;
         }
 

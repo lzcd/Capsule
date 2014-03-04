@@ -8,6 +8,18 @@ namespace Capsule
 {
     class Lambda : INode, IApplyable
     {
+        public Lambda()
+        {
+
+        }
+
+        public Lambda(Nodes parameterNames, INode behaviour)
+        {
+            this.parameterNames = parameterNames;
+            this.behaviour = behaviour;
+            isRecording = false;
+        }
+
         public INode Evaluate(Context context)
         {
             return this;

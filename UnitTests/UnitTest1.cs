@@ -44,7 +44,7 @@ namespace UnitTests
         {
             var host = new Host();
             var result = host.Evaluate(@"(define (square x) (* x x)) (square 21)");
-            Assert.AreEqual("44", result);
+            Assert.AreEqual("441", result);
         }
     }
 }
