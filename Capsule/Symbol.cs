@@ -17,9 +17,12 @@ namespace Capsule
 
         public INode Evaluate()
         {
-            if (Name == "+")
+            switch (Name)
             {
-                return new Add();
+                case "+":
+                    return new Add();
+                case "lambda":
+                    return new Lambda();
             }
 
             return new Number(decimal.Parse(Name));

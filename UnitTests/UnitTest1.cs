@@ -22,5 +22,13 @@ namespace UnitTests
             var result = host.Evaluate(@"(+ 1 (+ 2 3) 4)");
             Assert.AreEqual("10", result);
         }
+
+        [TestMethod]
+        public void CanLambda()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"((lambda (x) (+ x 5)) 7)");
+            Assert.AreEqual("12", result);
+        }
     }
 }

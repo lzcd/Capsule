@@ -45,6 +45,7 @@
     <Compile Include="IApplyable.cs" />
     <Compile Include="IEvaluatable.cs" />
     <Compile Include="INode.cs" />
+    <Compile Include="Lambda.cs" />
     <Compile Include="Nodes.cs" />
     <Compile Include="Number.cs" />
     <Compile Include="Parser.cs" />
