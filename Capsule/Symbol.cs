@@ -28,6 +28,8 @@ namespace Capsule
                     return new Add();
                 case "lambda":
                     return new Lambda();
+                case "define":
+                    return new Define();
             }
 
             return new Number(decimal.Parse(Name));

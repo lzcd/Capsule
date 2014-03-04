@@ -8,11 +8,11 @@ namespace Capsule
 {
     class Context
     {
-        private Context parent;
+        public Context Parent { get; private set; }
 
         public Context(Context parent)
         {
-            this.parent = parent;
+            this.Parent = parent;
         }
 
         private Dictionary<string, INode> nodeByName;
@@ -24,8 +24,8 @@ namespace Capsule
             {
                 return true;
             }
-            if (parent != null &&
-                parent.TryGetValue(key, out value))
+            if (Parent != null &&
+                Parent.TryGetValue(key, out value))
             {
                 return true;
             }

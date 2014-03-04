@@ -30,5 +30,13 @@ namespace UnitTests
             var result = host.Evaluate(@"((lambda (x y) (+ x y 5)) 7 9)");
             Assert.AreEqual("21", result);
         }
+
+        [TestMethod]
+        public void CanDefine()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(define age 35) age");
+            Assert.AreEqual("35", result);
+        }
     }
 }
