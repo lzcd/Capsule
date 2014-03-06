@@ -35,7 +35,7 @@ namespace Capsule
             {
                 if (parameters.Count() != 2)
                 {
-                    return new Error();
+                    return new Error("Unexpected number of elements, " + parameters.Length + ", in lambda definition");
                 }
 
                 Error error;
@@ -56,7 +56,7 @@ namespace Capsule
         {
             if (parameters.Length != parameterNames.Count)
             {
-                return new Error();
+                return new Error("Unexpected number of parameters, " + parameters.Length + ", passed to lambda definition with " + parameterNames.Count + " arguments");
             }
 
             var childContext = new Context(context);
@@ -65,7 +65,7 @@ namespace Capsule
                 var parameterName = parameterNames[parameterIndex] as Symbol;
                 if (parameterName == null)
                 {
-                    return new Error();
+                    return new Error("Unexpected lack of parameter name, " + parameterNames[parameterIndex] + ", in lambda call");
                 }
                 var parameterValue = parameters[parameterIndex];
                 var evaluatedParameterValue = parameterValue.Evaluate(context);
@@ -84,7 +84,7 @@ namespace Capsule
             parameterNames = parameters.First() as Nodes;
             if (parameterNames == null)
             {
-                error = new Error();
+                error = new Error("Unexpected parameter names, " + parameters.First() + ", in lambda definition");
                 return false;
             }
 

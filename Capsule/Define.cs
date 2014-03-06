@@ -12,7 +12,7 @@ namespace Capsule
         {
             if (parameters.Length != 2)
             {
-                return new Error();
+                return new Error("Unexpected number of elements, " + parameters.Length + ", in define definition");
             }
             var parameterValue = parameters.Skip(1).First();
 
@@ -26,12 +26,12 @@ namespace Capsule
             var complexNameContainer = parameters.First() as Nodes;
             if (complexNameContainer == null)
             {
-                return new Error();
+                return new Error("Unexpected lack of list in define defininition");
             }
             var complexName = complexNameContainer.First as Symbol;
             if (complexName == null)
             {
-                return new Error();
+                return new Error("Unexpected lack of name in define definition");
             }
 
             var lambda = new Lambda(new Nodes(complexNameContainer.Rest), parameterValue);

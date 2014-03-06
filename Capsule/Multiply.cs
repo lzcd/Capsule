@@ -22,7 +22,7 @@ namespace Capsule
                 var number = evaluatedParameter as Number;
                 if (number == null)
                 {
-                    return new Error();
+                    return new Error("Unexpected lack of number, " + evaluatedParameter + ", in multiplication");
                 }
                 tally *= number.Value;
             }

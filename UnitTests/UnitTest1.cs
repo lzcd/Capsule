@@ -60,5 +60,21 @@ namespace UnitTests
 (sum-of-squares 3 4)");
             Assert.AreEqual("25", result);
         }
+
+
+        [TestMethod]
+        public void CanDefineClosure()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"
+(define age 35) 
+
+(define (nextage) (+ 1 age))
+
+(define age 25)
+
+(nextage)");
+            Assert.AreEqual("35", result);
+        }
     }
 }

@@ -50,7 +50,7 @@ namespace Capsule
                 {
                     nodeByName = new Dictionary<string, INode>();
                 }
-                nodeByName.Add(key, value);
+                nodeByName[key] = value;
             }
         }
     }
