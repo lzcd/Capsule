@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    class Define: INode, IApplyable
+    class Define : INode, IApplyable
     {
         public INode Apply(Context context, params INode[] parameters)
         {
@@ -18,7 +18,7 @@ namespace Capsule
             {
                 return new Error("Unable to define " + parameters.First() + " with no definition");
             }
-            var behaviour = parameters.Skip(1).First();
+            var behaviour = new Nodes(true, parameters.Skip(1).ToArray());
 
             var simpleName = parameters.First() as Symbol;
             if (simpleName != null)
@@ -40,7 +40,7 @@ namespace Capsule
 
             var lambda = new Lambda();
             var error = default(Error);
-            if (!lambda.TryRecord(context, new Nodes(true, complexNameContainer.Rest), behaviour, out error))
+            if (!lambda.TryRecord(context, new Nodes(false, complexNameContainer.Rest), behaviour, out error))
             {
                 return error;
             }
