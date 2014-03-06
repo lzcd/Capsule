@@ -24,7 +24,7 @@ namespace Capsule
                         break;
                     case ")":
                         var nodeList = stack.Pop();
-                        var nodes = new Nodes(nodeList.ToArray());
+                        var nodes = new Nodes(false, nodeList.ToArray());
                         stack.Peek().Add(nodes);
                         break;
                     default:
@@ -33,7 +33,7 @@ namespace Capsule
                         break;
                 }
             }
-            return new Nodes(root.ToArray());
+            return new Nodes(true, root.ToArray());
         }
 
         public List<string> ToWords(string text)

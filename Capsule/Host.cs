@@ -22,31 +22,16 @@ namespace Capsule
             var root = parser.ToNodes(words);
 
             var resultDescription = new StringBuilder();
-            var addSpacing = false;
-            foreach (var node in root)
+            var result = root.Evaluate(context);
+            var nodes = result as Nodes;
+            if (nodes != null)
             {
-                var result = node.Evaluate(context);
-                if (result == null)
+                if (nodes.Count == 1)
                 {
-                    continue;
-                }
-
-                if (addSpacing)
-                {
-                    resultDescription.Append(" ");
-                }
-                else
-                {
-                    addSpacing = true;
-                }
-                resultDescription.Append(result.ToString());
-                if (result is Error)
-                {
-                    break;
+                    return nodes.First.ToString();
                 }
             }
-
-            return resultDescription.ToString();
+            return result.ToString();
         }
     }
 }

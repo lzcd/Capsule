@@ -11,9 +11,11 @@ namespace Capsule
         private INode[] nodes;
         public INode First { get; private set; }
         public INode[] Rest { get; private set; }
+        private bool evaluateAllUponNoOperator;
 
-        public Nodes(params INode[] nodes)
+        public Nodes(bool evaluateAllUponNoOperator, params INode[] nodes)
         {
+            this.evaluateAllUponNoOperator = evaluateAllUponNoOperator;
             this.nodes = nodes;
             First = nodes.FirstOrDefault();
             if (nodes.Length > 1)
@@ -39,7 +41,25 @@ namespace Capsule
             var applicable = evaluatedFirst as IApplyable;
             if (applicable == null)
             {
-                return this;
+                if (!evaluateAllUponNoOperator)
+                {
+                    return this;
+                }
+
+                var results = new List<INode>();
+                if (evaluatedFirst != null)
+                {
+                    results.Add(evaluatedFirst);
+                }
+                foreach (var node in nodes.Skip(1))
+                {
+                    var evaluatedNode = node.Evaluate(childContext);
+                    if (evaluatedNode != null)
+                    {
+                        results.Add(evaluatedNode);
+                    }
+                }
+                return new Nodes(false, results.ToArray());
             }
 
             var result = applicable.Apply(childContext, Rest);

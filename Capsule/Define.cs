@@ -40,7 +40,7 @@ namespace Capsule
 
             var lambda = new Lambda();
             var error = default(Error);
-            if (!lambda.TryRecord(context, new Nodes(complexNameContainer.Rest), behaviour, out error))
+            if (!lambda.TryRecord(context, new Nodes(true, complexNameContainer.Rest), behaviour, out error))
             {
                 return error;
             }
