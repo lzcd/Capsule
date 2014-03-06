@@ -69,12 +69,12 @@ namespace UnitTests
             var result = host.Evaluate(@"
 (define age 35) 
 
-(define (nextage) (+ 1 age))
+(define (advancedage x) (+ x age))
 
 (define age 25)
 
-(nextage)");
-            Assert.AreEqual("35", result);
+(advancedage 1)");
+            Assert.AreEqual("36", result);
         }
     }
 }

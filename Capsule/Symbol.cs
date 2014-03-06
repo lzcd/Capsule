@@ -20,6 +20,10 @@ namespace Capsule
             INode value;
             if (context.TryGetValue(Name, out value))
             {
+                if (value is Symbol)
+                {
+                    return value.Evaluate(context);
+                }
                 return value;
             }
             switch (Name)
