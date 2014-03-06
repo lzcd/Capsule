@@ -67,14 +67,15 @@ namespace UnitTests
         {
             var host = new Host();
             var result = host.Evaluate(@"
-(define age 35) 
+(define y 5) 
 
-(define (advancedage x) (+ x age))
+(define (calculate x) (+ x y z))
 
-(define age 25)
+(define y 7)
+(define z 9)
 
-(advancedage 1)");
-            Assert.AreEqual("36", result);
+(calculate 3)");
+            Assert.AreEqual("17", result);
         }
     }
 }

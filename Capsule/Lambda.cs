@@ -57,9 +57,8 @@ namespace Capsule
                     return new Error("Unexpected lack of parameter name, " + parameterNames[parameterIndex] + ", in lambda call");
                 }
                 var parameterValue = parameters[parameterIndex];
-                definitionContext.Fallback = context;
-                var evaluatedParameterValue = parameterValue.Evaluate(definitionContext);
-                definitionContext.Fallback = null;
+                childContext.Fallback = context;
+                var evaluatedParameterValue = parameterValue.Evaluate(childContext);
                 childContext[parameterName.Name] = evaluatedParameterValue;
             }
 
