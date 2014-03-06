@@ -23,14 +23,6 @@ namespace Capsule
 
             var resultDescription = new StringBuilder();
             var result = root.Evaluate(context);
-            var nodes = result as Nodes;
-            if (nodes != null)
-            {
-                if (nodes.Count == 1)
-                {
-                    return nodes.First.ToString();
-                }
-            }
             return result.ToString();
         }
     }

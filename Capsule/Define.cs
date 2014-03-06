@@ -18,7 +18,16 @@ namespace Capsule
             {
                 return new Error("Unable to define " + parameters.First() + " with no definition");
             }
-            var behaviour = new Nodes(true, parameters.Skip(1).ToArray());
+            var behaviourNodes = parameters.Skip(1).ToArray();
+            var behaviour = default(INode);
+            if (behaviourNodes.Length == 1)
+            {
+                behaviour = behaviourNodes.First();
+            }
+            else
+            {
+                behaviour = new Nodes(true, behaviourNodes.ToArray());
+            }
 
             var simpleName = parameters.First() as Symbol;
             if (simpleName != null)

@@ -59,11 +59,20 @@ namespace Capsule
                         results.Add(evaluatedNode);
                     }
                 }
+                if (results.Count == 1)
+                {
+                    return results.First();
+                }
                 return new Nodes(false, results.ToArray());
             }
 
             var result = applicable.Apply(childContext, Rest);
-
+            var resultNodes = result as Nodes;
+            if (resultNodes != null &&
+                resultNodes.Count == 1)
+            {
+                return resultNodes.First;
+            }
             return result;
         }
 
