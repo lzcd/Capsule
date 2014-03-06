@@ -54,28 +54,29 @@ namespace Capsule
             }
         }
 
-        public Context Flatten()
+        public Context Clone()
         {
-            var flattenedContext = default(Context);
+            var parentCloneContex = default(Context);
 
             if (Parent == null)
             {
-                flattenedContext = new Context(null);
+                parentCloneContex = new Context(null);
             }
             else
             {
-                flattenedContext = Parent.Flatten();
+                parentCloneContex = Parent.Clone();
             }
+            var clone = new Context(parentCloneContex);
 
             if (nodeByName != null)
             {
                 foreach (var keyValuePair in nodeByName)
                 {
-                    flattenedContext[keyValuePair.Key] = keyValuePair.Value;
+                    clone[keyValuePair.Key] = keyValuePair.Value;
                 }
             }
 
-            return flattenedContext;
+            return clone;
         }
     }
 }
