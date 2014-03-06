@@ -53,5 +53,29 @@ namespace Capsule
                 nodeByName[key] = value;
             }
         }
+
+        public Context Flatten()
+        {
+            var flattenedContext = default(Context);
+
+            if (Parent == null)
+            {
+                flattenedContext = new Context(null);
+            }
+            else
+            {
+                flattenedContext = Parent.Flatten();
+            }
+
+            if (nodeByName != null)
+            {
+                foreach (var keyValuePair in nodeByName)
+                {
+                    flattenedContext[keyValuePair.Key] = keyValuePair.Value;
+                }
+            }
+
+            return flattenedContext;
+        }
     }
 }
