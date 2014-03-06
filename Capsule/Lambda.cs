@@ -8,17 +8,6 @@ namespace Capsule
 {
     class Lambda : INode, IApplyable
     {
-        public Lambda()
-        {
-
-        }
-
-        public Lambda(Nodes parameterNames, INode behaviour)
-        {
-            this.parameterNames = parameterNames;
-            this.behaviour = behaviour;
-            isRecording = false;
-        }
 
         public INode Evaluate(Context context)
         {
@@ -28,23 +17,23 @@ namespace Capsule
         private bool isRecording = true;
         private Nodes parameterNames;
         private INode behaviour;
+        private Context definitionContext;
 
         public INode Apply(Context context, params INode[] parameters)
         {
             if (isRecording)
             {
-                if (parameters.Count() != 2)
+                var parameterNames = parameters.First() as Nodes;
+                if (parameterNames == null)
                 {
-                    return new Error("Unexpected number of elements, " + parameters.Length + ", in lambda definition");
+                    return new Error("Unexpected parameter names, " + parameters.First() + ", in lambda definition");
                 }
-
-                Error error;
-                if (!TryRecord(parameters, out error))
+                var behaviour = parameters.Skip(1).First();
+                var error = default(Error);
+                if (!TryRecord(context, parameterNames, behaviour, out error))
                 {
                     return error;
                 }
-
-                isRecording = false;
                 return this;
             }
 
@@ -59,7 +48,7 @@ namespace Capsule
                 return new Error("Unexpected number of parameters, " + parameters.Length + ", passed to lambda definition with " + parameterNames.Count + " arguments");
             }
 
-            var childContext = new Context(context);
+            var childContext = new Context(definitionContext);
             for (var parameterIndex = 0; parameterIndex < parameters.Length; parameterIndex++)
             {
                 var parameterName = parameterNames[parameterIndex] as Symbol;
@@ -68,7 +57,9 @@ namespace Capsule
                     return new Error("Unexpected lack of parameter name, " + parameterNames[parameterIndex] + ", in lambda call");
                 }
                 var parameterValue = parameters[parameterIndex];
-                var evaluatedParameterValue = parameterValue.Evaluate(context);
+                definitionContext.Fallback = context;
+                var evaluatedParameterValue = parameterValue.Evaluate(definitionContext);
+                definitionContext.Fallback = null;
                 childContext[parameterName.Name] = evaluatedParameterValue;
             }
 
@@ -77,18 +68,15 @@ namespace Capsule
             return evaluatedBehaviour;
         }
 
-        private bool TryRecord(INode[] parameters, out Error error)
+        public bool TryRecord(Context context, Nodes parameterNames, INode behaviour, out Error error)
         {
             error = null;
 
-            parameterNames = parameters.First() as Nodes;
-            if (parameterNames == null)
-            {
-                error = new Error("Unexpected parameter names, " + parameters.First() + ", in lambda definition");
-                return false;
-            }
+            this.parameterNames = parameterNames;
+            this.behaviour = behaviour;
+            definitionContext = context.Clone();
+            isRecording = false;
 
-            behaviour = parameters.Skip(1).First();
             return true;
         }
     }

@@ -16,6 +16,7 @@ namespace Capsule
         }
 
         private Dictionary<string, INode> nodeByName;
+        public Context Fallback { get; set; }
 
         public bool TryGetValue(string key, out INode value)
         {
@@ -29,9 +30,15 @@ namespace Capsule
             {
                 return true;
             }
+            if (Fallback != null &&
+                Fallback.TryGetValue(key, out value))
+            {
+                return true;
+            }
             value = null;
             return false;
         }
+
 
         public INode this[string key]
         {
@@ -56,17 +63,17 @@ namespace Capsule
 
         public Context Clone()
         {
-            var parentCloneContex = default(Context);
+            var parentCloneContext = default(Context);
 
             if (Parent == null)
             {
-                parentCloneContex = new Context(null);
+                parentCloneContext = new Context(null);
             }
             else
             {
-                parentCloneContex = Parent.Clone();
+                parentCloneContext = Parent.Clone();
             }
-            var clone = new Context(parentCloneContex);
+            var clone = new Context(parentCloneContext);
 
             if (nodeByName != null)
             {

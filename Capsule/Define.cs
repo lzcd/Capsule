@@ -34,7 +34,9 @@ namespace Capsule
                 return new Error("Unexpected lack of name in define definition");
             }
 
-            var lambda = new Lambda(new Nodes(complexNameContainer.Rest), parameterValue);
+            var lambda = new Lambda();
+            var error = default(Error);
+            lambda.TryRecord(context, new Nodes(complexNameContainer.Rest), parameterValue,out error);
             context.Parent[complexName.Name] = lambda;
             return null;
         }
