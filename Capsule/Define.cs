@@ -10,16 +10,20 @@ namespace Capsule
     {
         public INode Apply(Context context, params INode[] parameters)
         {
-            if (parameters.Length != 2)
+            if (parameters.Length == 0)
             {
-                return new Error("Unexpected number of elements, " + parameters.Length + ", in define definition");
+                return new Error("Unable to define nothing");
             }
-            var parameterValue = parameters.Skip(1).First();
+            if (parameters.Length == 1)
+            {
+                return new Error("Unable to define " + parameters.First() + " with no definition");
+            }
+            var behaviour = parameters.Skip(1).First();
 
             var simpleName = parameters.First() as Symbol;
             if (simpleName != null)
             {
-                context.Parent[simpleName.Name] = parameterValue;
+                context.Parent[simpleName.Name] = behaviour;
                 return null;
             }
 
@@ -36,7 +40,10 @@ namespace Capsule
 
             var lambda = new Lambda();
             var error = default(Error);
-            lambda.TryRecord(context, new Nodes(complexNameContainer.Rest), parameterValue,out error);
+            if (!lambda.TryRecord(context, new Nodes(complexNameContainer.Rest), behaviour, out error))
+            {
+                return error;
+            }
             context.Parent[complexName.Name] = lambda;
             return null;
         }

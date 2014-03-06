@@ -61,6 +61,19 @@ namespace UnitTests
             Assert.AreEqual("25", result);
         }
 
+        [TestMethod]
+        public void CanDefineNestedComplex()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"
+(define (sum-of-squares x y)
+    (define (square a) (* a a))
+    (+ (square x) (square y))
+)
+
+(sum-of-squares 3 4)");
+            Assert.AreEqual("25", result);
+        }
 
         [TestMethod]
         public void CanDefineClosure()

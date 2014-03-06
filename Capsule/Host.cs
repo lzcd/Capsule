@@ -40,6 +40,10 @@ namespace Capsule
                     addSpacing = true;
                 }
                 resultDescription.Append(result.ToString());
+                if (result is Error)
+                {
+                    break;
+                }
             }
 
             return resultDescription.ToString();
