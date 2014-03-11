@@ -90,5 +90,22 @@ namespace UnitTests
 (calculate 3)");
             Assert.AreEqual("17", result);
         }
+
+
+        [TestMethod]
+        public void CanIfTrue()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(if true 1 2)");
+            Assert.AreEqual("1", result);
+        }
+
+        [TestMethod]
+        public void CanIfFalse()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(if false 2 3)");
+            Assert.AreEqual("3", result);
+        }
     }
 }

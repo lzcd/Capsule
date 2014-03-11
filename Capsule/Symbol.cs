@@ -32,16 +32,24 @@ namespace Capsule
                     return new Add();
                 case "*":
                     return new Multiply();
+                case "if":
+                    return new If();
                 case "lambda":
                     return new Lambda();
                 case "define":
                     return new Define();
             }
 
-            var numericalValue = default(decimal);
-            if (decimal.TryParse(Name, out numericalValue))
+            var flag = default(Flag);
+            if (Flag.TryParse(Name, out flag))
             {
-                return new Number(numericalValue);
+                return flag;
+            }
+
+            var number = default(Number);
+            if (Number.TryParse(Name, out number))
+            {
+                return number;
             }
 
             return new Error("Unable to determine value of " + Name);

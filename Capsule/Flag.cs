@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Capsule
 {
-    class Number : INode
+    class Flag : INode
     {
-        public decimal Value { get; private set; }
+        public bool Value { get; private set; }
 
-        public Number(decimal value)
+        public Flag(bool value)
         {
             Value = value;
         }
@@ -25,16 +25,17 @@ namespace Capsule
             return Value.ToString();
         }
 
-        public static bool TryParse(string text, out Number number)
+
+        public static bool TryParse(string text, out Flag flag)
         {
-            var numericalValue = default(decimal);
-            if (decimal.TryParse(text, out numericalValue))
+            var flagValue = default(bool);
+            if (bool.TryParse(text, out flagValue))
             {
-                number = new Number(numericalValue);
+                flag = new Flag(flagValue);
                 return true;
             }
 
-            number = null;
+            flag = null;
             return false;
         }
     }

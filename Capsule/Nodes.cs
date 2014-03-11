@@ -38,6 +38,11 @@ namespace Capsule
             var childContext = new Context(context);
             var evaluatedFirst = First.Evaluate(childContext);
 
+            if (evaluatedFirst is Error)
+            {
+                return evaluatedFirst;
+            }
+
             var applicable = evaluatedFirst as IApplyable;
             if (applicable == null)
             {
