@@ -38,7 +38,13 @@ namespace Capsule
                     return new Define();
             }
 
-            return new Number(decimal.Parse(Name));
+            var numericalValue = default(decimal);
+            if (decimal.TryParse(Name, out numericalValue))
+            {
+                return new Number(numericalValue);
+            }
+
+            return new Error("Unable to determine value of " + Name);
         }
 
         public override string ToString()
