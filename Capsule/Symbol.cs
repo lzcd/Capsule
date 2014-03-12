@@ -36,6 +36,8 @@ namespace Capsule
                     return new Subtract();
                 case "*":
                     return new Multiply();
+                case "/":
+                    return new Divide();
                 case "if":
                     return new If();
                 case "lambda":

@@ -108,6 +108,14 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void CanDivide()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(/ 100 (/ 10 2) 5)");
+            Assert.AreEqual("4", result);
+        }
+
+        [TestMethod]
         public void CanNegate()
         {
             var host = new Host();
