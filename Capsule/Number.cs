@@ -20,6 +20,22 @@ namespace Capsule
             return this;
         }
 
+        public override bool Equals(object obj)
+        {
+            var other = obj as Number;
+            if (other == null)
+            {
+                return false;
+            }
+
+            if (other.Value != Value)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public override string ToString()
         {
             return Value.ToString();

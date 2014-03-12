@@ -107,5 +107,21 @@ namespace UnitTests
             var result = host.Evaluate(@"(if false 2 3)");
             Assert.AreEqual("3", result);
         }
+
+        [TestMethod]
+        public void CanEqualPositive()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(= 4 4 4)");
+            Assert.AreEqual("true", result);
+        }
+
+        [TestMethod]
+        public void CanEqualNegative()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(= 4 5 4)");
+            Assert.AreEqual("false", result);
+        }
     }
 }

@@ -28,6 +28,8 @@ namespace Capsule
             }
             switch (Name)
             {
+                case "=":
+                    return new Equal();
                 case "+":
                     return new Add();
                 case "*":
