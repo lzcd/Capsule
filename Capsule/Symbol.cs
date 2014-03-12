@@ -32,6 +32,8 @@ namespace Capsule
                     return new Equal();
                 case "+":
                     return new Add();
+                case "-":
+                    return new Subtract();
                 case "*":
                     return new Multiply();
                 case "if":

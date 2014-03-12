@@ -10,7 +10,7 @@ namespace Capsule
     {
         public INode Apply(Context context, params INode[] parameters)
         {
-            if (parameters.Length == 0)
+            if (!parameters.Any())
             {
                 return new Error("Unable to define nothing");
             }

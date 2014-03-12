@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Add.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="Subtract.cs" />
     <Compile Include="Equal.cs" />
     <Compile Include="Flag.cs" />
     <Compile Include="If.cs" />

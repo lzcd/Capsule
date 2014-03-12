@@ -91,6 +91,29 @@ namespace UnitTests
             Assert.AreEqual("17", result);
         }
 
+        [TestMethod]
+        public void CanMultiply()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(* 2 (* 3 4) 5)");
+            Assert.AreEqual("120", result);
+        }
+
+        [TestMethod]
+        public void CanSubtract()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(- 10 (- 5 3) 3)");
+            Assert.AreEqual("5", result);
+        }
+
+        [TestMethod]
+        public void CanNegate()
+        {
+            var host = new Host();
+            var result = host.Evaluate(@"(- 5)");
+            Assert.AreEqual("-5", result);
+        }
 
         [TestMethod]
         public void CanIfTrue()

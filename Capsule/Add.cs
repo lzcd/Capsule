@@ -15,6 +15,10 @@ namespace Capsule
 
         public INode Apply(Context context, params INode[] parameters)
         {
+            if (!parameters.Any())
+            {
+                return new Error("Nothing to add");
+            }
             var tally = 0M;
             foreach (var parameter in parameters)
             {
